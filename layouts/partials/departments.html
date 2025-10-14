@@ -1,0 +1,33 @@
+{{ $departments := .Site.Params.departments }}
+{{ if $departments }}
+<section class="py-16 bg-neutral-50/50 dark:bg-neutral-900/50  rounded-lg">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 rounded-lg">
+        <div class="text-left mb-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-neutral-800 dark:text-neutral-200 mb-4">
+                {{ $departments.title | default "Departments" }}
+            </h2>
+            {{ if $departments.description }}
+            <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400">
+                {{ $departments.description }}
+            </p>
+            {{ end }}
+        </div>
+        {{ if $departments.items }}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+            {{ range $departments.items }}
+            <div class="bg-white dark:bg-neutral-800 rounded-lg p-6 shadow-sm mb-6">
+                <h3 class="text-lg sm:text-xl font-semibold text-neutral-800 dark:text-neutral-200">
+                    {{ .name }}{{ with .abbr }} ({{ . }}){{ end }}
+                </h3>
+                {{ if .description }}
+                <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2">
+                    {{ .description }}
+                </p>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

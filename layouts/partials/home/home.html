@@ -58,6 +58,9 @@
     {{ partial "leadership.html" . }}
 </section>
 <section>
+    {{ partial "departments.html" . }}
+</section>
+<section>
     {{ partial "recent-articles/announcements.html" . }}
 </section>
 {{ if .Site.Params.homepage.layoutBackgroundBlur | default false }}
