@@ -583,14 +583,31 @@
 </h2>
 <p>To become a member of ROBU, please follow these steps:</p>
 <ol>
-<li><strong>Visit our registration portal</strong>: <a
-  href="https://registration.bracu.ac.bd"
+<li><strong>Visit our registration portal</strong>: <span id="registration-link"><a href="https://registration.bracurobu.com" target="_blank" rel="noopener noreferrer"><a
+  href="https://registration.bracurobu.com"
     target="_blank"
-  >https://registration.bracu.ac.bd</a></li>
+  >https://registration.bracurobu.com</a></a></span></li>
 <li><strong>Complete the registration form</strong> with your details</li>
 <li><strong>Wait for interview call</strong> - if your application is successful, you&rsquo;ll be contacted for an interview</li>
 <li><strong>Attend mandatory free course (will require some tools, can be self-sourced or bought from us)</strong> - &ldquo;Basics of Robotics&rdquo; (required for all new members)</li>
 </ol>
+<script>
+  (function () {
+    var linkWrapper = document.getElementById('registration-link');
+    if (!linkWrapper) return;
+    var closedText = '[Registration Server is currently Closed]';
+    try {
+      fetch('https://api.registration.bracurobu.com/health', { method: 'GET', cache: 'no-store' })
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(new Error('Bad status ' + res.status)); })
+        .then(function (json) {
+          if (!json || json.status !== 'ok') linkWrapper.textContent = closedText;
+        })
+        .catch(function () { linkWrapper.textContent = closedText; });
+    } catch (e) {
+      linkWrapper.textContent = closedText;
+    }
+  })();
+</script>
 
 <h2 class="relative group">Membership Benefits 
     <div id="membership-benefits" class="anchor"></div>
